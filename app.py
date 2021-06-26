@@ -36,7 +36,7 @@ groceries = dbc.Card([
     dbc.CardBody([
         html.H3("Indkøbsliste", className="card-title"),
         html.P("Den generede indkøbsliste kan ses herunder.", className="card-text"),
-        dbc.Table(id='groceries-table', children=[html.Thead(html.Tr([html.Th("Antal"), html.Th("Navn")]))], bordered=True)
+        dbc.Table(id='groceries-table', children=[html.Thead(html.Tr([html.Th("Ingrediens"), html.Th("Antal")]))], bordered=True)
     ])
 ])
 
@@ -61,7 +61,7 @@ app.layout = html.Div([
 )
 def update_grocery_list(input_value):
     table_header = [
-        html.Thead(html.Tr([html.Th("Antal"), html.Th("Ingrediens")]))
+        html.Thead(html.Tr([html.Th("Ingrediens"), html.Th("Antal")]))
     ]
     if input_value is not None:
         grocieries1 = db['Forbrug'][db['Forbrug']['RetID'].isin(input_value)] \
@@ -71,8 +71,8 @@ def update_grocery_list(input_value):
         rows = []
         for i in grocieries1.index:
             rows.append(html.Tr([
-                html.Td(str(grocieries1.loc[i,'Antal']) + ' ' + grocieries1.loc[i,'Enhed']),
-                html.Td(grocieries1.loc[i,'Ingrediens'])
+                html.Td(grocieries1.loc[i,'Ingrediens']),
+                html.Td(str(grocieries1.loc[i,'Antal']) + ' ' + grocieries1.loc[i,'Enhed'])
             ]))
         return table_header + [html.Tbody(rows)]
     return table_header
