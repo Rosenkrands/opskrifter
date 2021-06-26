@@ -24,6 +24,7 @@ recipes = dbc.Card([
         html.H3("Opskrifter", className="card-title"),
         html.P("Vælg de opskrifter som du ønsker at generere indkøbslisten ud fra.", className="card-text"),
         dcc.Dropdown(
+            id='recipe-dropdown',
             options=recipe_options,
             multi=True
         )
@@ -33,7 +34,8 @@ recipes = dbc.Card([
 groceries = dbc.Card([
     dbc.CardBody([
         html.H3("Indkøbsliste", className="card-title"),
-        html.P("Den generede indkøbsliste kan ses herunder.", className="card-text")
+        html.P("Den generede indkøbsliste kan ses herunder.", className="card-text"),
+        dbc.Table.from_dataframe(id='groceries-table', df=pd.DataFrame({'Type': ['N/A'], 'Antal': ['N/A'], 'Navn': ['N/A']}))
     ])
 ])
 
@@ -44,13 +46,15 @@ app.layout = html.Div([
         dbc.Row([
             dbc.Col([
                 recipes
-            ], width={'size': '8'}),
+            ], width={'size': '7'}),
             dbc.Col([
                 groceries
-            ], width={'size': '4'})
+            ], width={'size': '5'})
         ])
     ])
 ])
+
+
 
 if __name__ == '__main__':
     app.run_server(debug=True)
