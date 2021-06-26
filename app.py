@@ -1,22 +1,39 @@
-# import pandas as pd
 import dash
 import dash_html_components as html
+import dash_core_components as dcc
 import dash_bootstrap_components as dbc
 
+import pandas as pd
 
-app = dash.Dash(external_stylesheets=[dbc.themes.BOOTSTRAP],suppress_callback_exceptions=True)
+db = {}
+for sheet_name in ['Retter', 'Ingredienser', 'Forbrug']:
+    db[sheet_name] = pd.read_excel('recipes.xlsx', sheet_name=sheet_name)
+
+recipe_options = []
+for i in db['Retter'].index:
+    option = {
+        'label': db['Retter'].loc[i,'Navn'],
+        'value': db['Retter'].loc[i,'ID']
+    }
+    recipe_options.append(option)
+
+app = dash.Dash(external_stylesheets=[dbc.themes.BOOTSTRAP], suppress_callback_exceptions=True)
 
 recipes = dbc.Card([
     dbc.CardBody([
         html.H3("Opskrifter", className="card-title"),
-        html.P("...", className="card-text")
+        html.P("Vælg de opskrifter som du ønsker at generere indkøbslisten ud fra.", className="card-text"),
+        dcc.Dropdown(
+            options=recipe_options,
+            multi=True
+        )
     ])
 ])
 
 groceries = dbc.Card([
     dbc.CardBody([
         html.H3("Indkøbsliste", className="card-title"),
-        html.P("...", className="card-text")
+        html.P("Den generede indkøbsliste kan ses herunder.", className="card-text")
     ])
 ])
 
