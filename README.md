@@ -19,6 +19,6 @@ The first time the image is built from scratch it will take forever to install p
 
 Second step is then to start a container based on the image just build, this is done with the following command
 ```
-docker run -dp 8050:8050 getting-started
+docker run -dp 8050:8050 madplanlaegger
 ```
 The `-dp` tells docker that we want to run the container in detached mode (in other words, headless or in the background) as well as map port 8050 of the container to port 8050 on the host.
