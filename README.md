@@ -1,6 +1,10 @@
 # Madplanlaegger
 This is a tool to ease the process of constructing a grocery list, when planning multiple meals with common ingredients.
 
+It is a simple web application written in python utilizing the plotly dash package.
+
+Recipes are stored in an excel spreadsheet.
+
 ## Installation and setup
 The repository in structured to run the application in a docker container, so make sure docker is installed and running.
 
